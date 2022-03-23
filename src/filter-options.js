@@ -1,82 +1,82 @@
 export const BRANDS = [
   {
-    value: 'Aga',
+    value: 'aga',
     label: 'Aga'
   },
   {
-    value: 'AmerikanRange',
+    value: 'amerikan_range',
     label: 'Amerikan Range'
   },
   {
-    value: 'Alfresco',
+    value: 'alfresco',
     label: 'Alfresco'
   },
   {
-    value: 'Bertazzoni',
+    value: 'bertazzoni',
     label: 'Bertazzoni'
   },
   {
-    value: 'Blomberg',
+    value: 'blomberg',
     label: 'Blomberg'
   },
   {
-    value: 'BlueStar',
+    value: 'blue_star',
     label: 'BlueStar'
   },
   {
-    value: 'Bosch',
+    value: 'bosch',
     label: 'Bosch'
   },
   {
-    value: 'Cafe',
+    value: 'cafe',
     label: 'Cafe'
   },
   {
-    value: 'Capital',
+    value: 'capital',
     label: 'Capital'
   },
   {
-    value: 'Cove',
+    value: 'cove',
     label: 'Cove'
   },
   {
-    value: 'Coyote',
+    value: 'coyote',
     label: 'Coyote'
   },
   {
-    value: 'Dacor',
+    value: 'dacor',
     label: 'Dacor'
   },
   {
-    value: 'Dcs',
+    value: 'dcs',
     label: 'DCS'
   },
   {
-    value: 'Electrolux',
+    value: 'electrolux',
     label: 'Electrolux'
   },
   {
-    value: 'Elica',
+    value: 'elica',
     label: 'Elica'
   },
   {
-    value: 'Fisher&Paykel',
+    value: 'fisher_&_paykel',
     label: 'Fisher&Paykel'
   },
   {
-    value: 'Frigidaire',
+    value: 'frigidaire',
     label: 'FRIGIDAIRE'
   },
   {
-    value: 'Gaggenau',
+    value: 'gaggenau',
     label: 'GAGGENAU'
   },
   {
-    value: 'Acornue',
+    value: 'a_cornue',
     label: 'A CORNUE'
   },
   {
-    value: 'LG',
+    value: 'lg',
     label: 'LG'
   },
   {
@@ -84,87 +84,87 @@ export const BRANDS = [
     label: 'LYNX'
   },
   {
-    value: 'Leibherr',
+    value: 'leibherr',
     label: 'Leibherr'
   },
   {
-    value: 'Marvel',
+    value: 'marvel',
     label: 'Marvel'
   },
   {
-    value: 'Miele',
+    value: 'miele',
     label: 'Miele'
   },
   {
-    value: 'Maytag',
+    value: 'maytag',
     label: 'Maytag'
   },
   {
-    value: 'Monogram',
+    value: 'monogram',
     label: 'Monogram'
   },
   {
-    value: 'Perlick',
+    value: 'perlick',
     label: 'Perlick'
   },
   {
-    value: 'Rcs',
+    value: 'rcs',
     label: 'RCS'
   },
   {
-    value: 'Samsung',
+    value: 'samsung',
     label: 'Samsung'
   },
   {
-    value: 'Signature',
+    value: 'signature',
     label: 'Signature'
   },
   {
-    value: 'Smeg',
+    value: 'smeg',
     label: 'Smeg'
   },
   {
-    value: 'SpeedQueen',
-    label: 'Speed Queen'
+    value: 'speed_queen',
+    label: 'speed Queen'
   },
   {
-    value: 'Subzero',
+    value: 'sub_zero',
     label: 'Sub Zero'
   },
   {
-    value: 'Superiore',
+    value: 'superiore',
     label: 'Superiore'
   },
   {
-    value: 'Thor',
+    value: 'thor',
     label: 'Thor'
   },
   {
-    value: 'VentAhood',
+    value: 'vent_a_hood',
     label: 'VentAHood'
   },
   {
-    value: 'Verona',
+    value: 'verona',
     label: 'Verona'
   },
   {
-    value: 'Viking',
+    value: 'viking',
     label: 'Viking'
   },
   {
-    value: 'Whirlpool',
+    value: 'whirlpool',
     label: 'Whirlpool'
   },
   {
-    value: 'Wolf',
+    value: 'wolf',
     label: 'Wolf'
   },
   {
-    value: 'Zephyr',
+    value: 'zephyr',
     label: 'Zephyr'
   },
   {
-    value: 'Zline',
+    value: 'zline',
     label: 'Zline'
   },
 ]
