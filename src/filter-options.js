@@ -1,20 +1,68 @@
 export const BRANDS = [
   {
-      value: 'apple',
-      label: 'Apple'
-  },
-  {
       value: 'Samsung',
       label: 'Samsung'
   },
   {
-      value: 'lg',
+      value: 'Lg',
       label: 'LG'
   },
   {
-      value: 'phillips',
-      label: 'Phillips'
+      value: 'Boch',
+      label: 'Boch'
   },
+  {
+      value: 'Electrolux',
+      label: 'Electrolux'
+  },
+  {
+    value: 'Frigidaire',
+    label: 'Frigidaire'
+  },
+  {
+    value: 'Monogram',
+    label: 'Monogram'
+  },
+  {
+    value: 'Kenmore',
+    label: 'Kenmore'
+  },
+  {
+    value: 'Maytag',
+    label: 'Maytag'
+  },
+  {
+    value: 'Thermador',
+    label: 'Thermador'
+  },
+  {
+    value: 'Whirlpool',
+    label: 'Whirlpool'
+  },
+  {
+    value: 'Viking',
+    label: 'Viking'
+  },
+  {
+    value: 'Subzero',
+    label: 'Sub zero'
+  },
+  {
+    value: 'Miele',
+    label: 'Miele'
+  },
+  {
+    value: 'KitchenAid',
+    label: 'KitchenAid'
+  },
+  {
+    value: 'FisherPaykel',
+    label: 'Fisher&Paykel'
+  },
+  {
+    value: 'Dacor',
+    label: 'Dacor'
+  }
 ]
 
 export const TECHIQUE = [
