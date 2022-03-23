@@ -1,68 +1,172 @@
 export const BRANDS = [
   {
-      value: 'Samsung',
-      label: 'Samsung'
+    value: 'Aga',
+    label: 'Aga'
   },
   {
-      value: 'Lg',
-      label: 'LG'
+    value: 'AmerikanRange',
+    label: 'Amerikan Range'
   },
   {
-      value: 'Boch',
-      label: 'Boch'
+    value: 'Alfresco',
+    label: 'Alfresco'
   },
   {
-      value: 'Electrolux',
-      label: 'Electrolux'
+    value: 'Bertazzoni',
+    label: 'Bertazzoni'
+  },
+  {
+    value: 'Blomberg',
+    label: 'Blomberg'
+  },
+  {
+    value: 'BlueStar',
+    label: 'BlueStar'
+  },
+  {
+    value: 'Bosch',
+    label: 'Bosch'
+  },
+  {
+    value: 'Cafe',
+    label: 'Cafe'
+  },
+  {
+    value: 'Capital',
+    label: 'Capital'
+  },
+  {
+    value: 'Cove',
+    label: 'Cove'
+  },
+  {
+    value: 'Coyote',
+    label: 'Coyote'
+  },
+  {
+    value: 'Dacor',
+    label: 'Dacor'
+  },
+  {
+    value: 'Dcs',
+    label: 'DCS'
+  },
+  {
+    value: 'Electrolux',
+    label: 'Electrolux'
+  },
+  {
+    value: 'Elica',
+    label: 'Elica'
+  },
+  {
+    value: 'Fisher&Paykel',
+    label: 'Fisher&Paykel'
   },
   {
     value: 'Frigidaire',
-    label: 'Frigidaire'
+    label: 'FRIGIDAIRE'
   },
   {
-    value: 'Monogram',
-    label: 'Monogram'
+    value: 'Gaggenau',
+    label: 'GAGGENAU'
   },
   {
-    value: 'Kenmore',
-    label: 'Kenmore'
+    value: 'Acornue',
+    label: 'A CORNUE'
   },
   {
-    value: 'Maytag',
-    label: 'Maytag'
+    value: 'LG',
+    label: 'LG'
   },
   {
-    value: 'Thermador',
-    label: 'Thermador'
+    value: 'lynx',
+    label: 'LYNX'
   },
   {
-    value: 'Whirlpool',
-    label: 'Whirlpool'
+    value: 'Leibherr',
+    label: 'Leibherr'
   },
   {
-    value: 'Viking',
-    label: 'Viking'
-  },
-  {
-    value: 'Subzero',
-    label: 'Sub zero'
+    value: 'Marvel',
+    label: 'Marvel'
   },
   {
     value: 'Miele',
     label: 'Miele'
   },
   {
-    value: 'KitchenAid',
-    label: 'KitchenAid'
+    value: 'Maytag',
+    label: 'Maytag'
   },
   {
-    value: 'FisherPaykel',
-    label: 'Fisher&Paykel'
+    value: 'Monogram',
+    label: 'Monogram'
   },
   {
-    value: 'Dacor',
-    label: 'Dacor'
-  }
+    value: 'Perlick',
+    label: 'Perlick'
+  },
+  {
+    value: 'Rcs',
+    label: 'RCS'
+  },
+  {
+    value: 'Samsung',
+    label: 'Samsung'
+  },
+  {
+    value: 'Signature',
+    label: 'Signature'
+  },
+  {
+    value: 'Smeg',
+    label: 'Smeg'
+  },
+  {
+    value: 'SpeedQueen',
+    label: 'Speed Queen'
+  },
+  {
+    value: 'Subzero',
+    label: 'Sub Zero'
+  },
+  {
+    value: 'Superiore',
+    label: 'Superiore'
+  },
+  {
+    value: 'Thor',
+    label: 'Thor'
+  },
+  {
+    value: 'VentAhood',
+    label: 'VentAHood'
+  },
+  {
+    value: 'Verona',
+    label: 'Verona'
+  },
+  {
+    value: 'Viking',
+    label: 'Viking'
+  },
+  {
+    value: 'Whirlpool',
+    label: 'Whirlpool'
+  },
+  {
+    value: 'Wolf',
+    label: 'Wolf'
+  },
+  {
+    value: 'Zephyr',
+    label: 'Zephyr'
+  },
+  {
+    value: 'Zline',
+    label: 'Zline'
+  },
 ]
 
 export const TECHIQUE = [
@@ -82,7 +186,7 @@ export const TECHIQUE = [
     value: 'wine-cooler',
     label: 'Wine cooler'
   },
-    {
+  {
     value: 'microwave',
     label: 'Microwave'
   },
@@ -491,7 +595,7 @@ export const ZIP_CODES = [
   },
   {
     "zip_code": '95155',
-    "city": 'San Jose'  
+    "city": 'San Jose'
   },
   {
     "zip_code": '95156',
