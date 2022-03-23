@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { Container, Typography, Box, Grid, Divider, Alert, Button } from "@mui/material";
-import Select from "react-select";
+import Select, { components } from "react-select";
 import { 
   ZIP_CODES,
   BRANDS,
@@ -13,6 +13,7 @@ const options = ZIP_CODES.map((item) => ({
   value: item.zip_code,
   label: `${item.zip_code} (${item.city})`,
 }));
+const Input = props => <components.Input {...props} maxLength={5} />;
 
 const HomePage = () => {
   const [zip, setZip] = useState({});
@@ -77,7 +78,12 @@ const HomePage = () => {
               Filters
             </Typography>
             <br></br>
-            <Select options={options} onChange={setZip} placeholder="Zip Code" />
+            <Select
+              options={options}
+              onChange={setZip}
+              placeholder="Zip Code"
+              components={{ Input }}
+            />
             <Box pt={5}>
             <Typography variant="h5">Additional filters</Typography>
             <br></br>
