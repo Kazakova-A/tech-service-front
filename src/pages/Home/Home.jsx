@@ -27,10 +27,10 @@ const HomePage = () => {
     try{
       const {
         data: { data },
-      } = await axios(`http://localhost:2121/filters/zip/${zip.value}`);
+      } = await axios(`${process.env.REACT_APP_API_URL}/filters/zip/${zip.value}`);
       setEmployees(data);
+
       if(!data?.length) {
-        console.log("==================================result", data);
        return setIsOpen(true)
       }   
 
@@ -46,7 +46,7 @@ const HomePage = () => {
     try{
       const {
         data: { data },
-      } = await axios(`http://localhost:2121/filters/specialization/${zip.value}?brand=${brand.value}&technique=${technique.value}`);
+      } = await axios(`${process.env.REACT_APP_API_URL}/filters/specialization/${zip.value}?brand=${brand.value}&technique=${technique.value}`);
       
       setEmployees(data);
       setIsOpen(false)
@@ -56,7 +56,6 @@ const HomePage = () => {
       if(error.response.data.message === 'Not found') {
         setIsOpen(true)
       }
-      console.log("==================================result", error.response.data.message);
 
       setEmployees([])
       setLargeFilters(false)
@@ -64,7 +63,9 @@ const HomePage = () => {
   }
 
   useEffect(() => {
-    getFilteredByZip();
+    if(zip.value) {
+      getFilteredByZip();
+    }
   }, [zip]);
 
   return (
@@ -80,9 +81,9 @@ const HomePage = () => {
             <Box pt={5}>
             <Typography variant="h5">Additional filters</Typography>
             <br></br>
-            <Select placeholder="Brands" isDisabled={!largeFilters} options={BRANDS} onChange={setBrand} />
-            <br></br>
             <Select placeholder="Technique" isDisabled={!largeFilters}  options={TECHIQUE} onChange={setTechnique} />
+            <br></br>
+            <Select placeholder="Brands" isDisabled={!largeFilters} options={BRANDS} onChange={setBrand} />
             <br>
             </br>
               <Button variant="contained" disabled={!largeFilters} onClick={getDetailedFilter}>Find</Button>
