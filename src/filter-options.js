@@ -169,7 +169,7 @@ export const BRANDS = [
   },
 ]
 
-export const TECHIQUE = [
+export const TYPES = [
   {
     value: 'refrigerator',
     label: 'Refrigerator'
@@ -183,7 +183,7 @@ export const TECHIQUE = [
     label: 'Dryer'
   },
   {
-    value: 'wine-cooler',
+    value: 'wine_cooler',
     label: 'Wine cooler'
   },
   {
@@ -199,7 +199,7 @@ export const TECHIQUE = [
     label: 'Cooktop'
   },
   {
-    value: 'vent-hood',
+    value: 'vent_hood',
     label: 'Vent hood'
   },
   {
@@ -215,7 +215,7 @@ export const TECHIQUE = [
     label: 'Dryer'
   },
   {
-    value: 'garbage-disposal',
+    value: 'garbage_disposal',
     label: 'Garbage disposal'
   },
 ]
