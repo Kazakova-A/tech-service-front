@@ -1,0 +1,23 @@
+{
+  "root": true,
+  "extends": [
+    "airbnb",
+    "airbnb-typescript"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "ignorePatterns": ["*.js"],
+  "rules": {
+    "linebreak-style": ["error", "windows"],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.test.tsx", "**/*.story.tsx"] }],
+    "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "import/prefer-default-export": "off",
+    "import/no-unresolved": "off",
+    "react/require-default-props": "off",
+    "react/prop-types": "off",
+    "max-len": [2, { "code": 120 }],
+    "@typescript-eslint/default-param-last": [0]
+  }
+}

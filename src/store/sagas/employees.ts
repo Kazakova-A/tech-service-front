@@ -1,0 +1,58 @@
+import {
+  put,
+  takeLatest,
+  select,
+  call,
+} from 'redux-saga/effects';
+
+import { fetchEmployees } from 'api/employees';
+import { EmployeesActions } from '../actions/employees';
+import { EmployeesActionTypes, GetEmployeesReq } from '../types/employees';
+import { UtilsActions } from '../actions/utils';
+import { RootState } from '../reducers';
+import { FiltersData } from '../types/filters';
+
+function* getEmployeesRequestSaga(): Generator {
+  try {
+    const { zip, type, brand } = (yield select((state: RootState) => state.filters)) as FiltersData;
+
+    const payload: GetEmployeesReq = {
+      zip: Number(zip.value),
+    };
+
+    if (type.value && brand.value) {
+      payload.params = {
+        type: type.value,
+        brand: brand.value,
+      };
+    }
+
+    const result = (yield call(fetchEmployees, payload)) as any[];
+
+    yield put(EmployeesActions.getEmployeesSuccess(result));
+  } catch (e) {
+    const { message } = e as Error;
+
+    yield put(EmployeesActions.getEmployeesError());
+    yield put(EmployeesActions.clearList());
+
+    if (message === 'Not found') {
+      yield put(UtilsActions.openNotification({
+        text: 'Not found',
+        type: 'info',
+      }));
+      return;
+    }
+
+    yield put(UtilsActions.openNotification({
+      text: message || 'Server error',
+      type: 'error',
+    }));
+  }
+}
+
+function* watch(): Generator {
+  yield takeLatest(EmployeesActionTypes.GET_EMPLOYEES_REQUEST, getEmployeesRequestSaga);
+}
+
+export default watch;
