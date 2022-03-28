@@ -1,11 +1,15 @@
 export const BRANDS = [
   {
+    value: 'asko',
+    label: 'Asko'
+  },
+  {
     value: 'aga',
     label: 'Aga'
   },
   {
-    value: 'amerikan_range',
-    label: 'Amerikan Range'
+    value: 'american_range',
+    label: 'American Range'
   },
   {
     value: 'alfresco',
@@ -72,8 +76,8 @@ export const BRANDS = [
     label: 'GAGGENAU'
   },
   {
-    value: 'a_cornue',
-    label: 'A CORNUE'
+    value: 'la_cornue',
+    label: 'La CORNUE'
   },
   {
     value: 'lg',
@@ -84,8 +88,8 @@ export const BRANDS = [
     label: 'LYNX'
   },
   {
-    value: 'leibherr',
-    label: 'Leibherr'
+    value: 'liebher',
+    label: 'Liebher'
   },
   {
     value: 'marvel',
@@ -125,7 +129,7 @@ export const BRANDS = [
   },
   {
     value: 'speed_queen',
-    label: 'speed Queen'
+    label: 'Speed Queen'
   },
   {
     value: 'sub_zero',
@@ -211,8 +215,8 @@ export const TYPES = [
     label: 'Washer',
   },
   {
-    value: 'dryer',
-    label: 'Dryer'
+    value: 'oven',
+    label: 'Oven'
   },
   {
     value: 'garbage_disposal',

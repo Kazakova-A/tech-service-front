@@ -33,7 +33,35 @@ const filtersReducer = (
     }
     case FiltersActionTypes.CLEAR_FILTERS: {
       return {
-        ...INITIAL_STATE,
+        ...state,
+        zip: INITIAL_STATE.zip,
+        type: INITIAL_STATE.type,
+        brand: INITIAL_STATE.brand,
+      };
+    }
+    case FiltersActionTypes.GET_FILTER_OPTIONS_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case FiltersActionTypes.GET_FILTER_OPTIONS_SUCCESS: {
+      const { options, name } = action.payload;
+      const key = {
+        brand: 'brandOptions',
+        type: 'typeOptions',
+      };
+
+      return {
+        ...state,
+        isLoading: true,
+        [key[name]]: options,
+      };
+    }
+    case FiltersActionTypes.GET_FILTER_OPTIONS_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
       };
     }
     default: return state;

@@ -11,4 +11,7 @@ export const INITIAL_STATE = {
     value: '',
     label: '',
   },
+  brandOptions: [],
+  typeOptions: [],
+  isLoading: false,
 };
