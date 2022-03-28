@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -7,8 +7,6 @@ import {
   Grid,
   Divider,
   Button,
-  Autocomplete,
-  TextField,
   CircularProgress,
 } from '@mui/material';
 
@@ -16,8 +14,9 @@ import { RootState } from 'store/reducers';
 import { FiltersActions } from 'store/actions/filters';
 import { Option, Filters } from 'store/types/filters';
 import { EmployeesActions } from 'store/actions/employees';
+import Select from 'components/Select';
 
-import { ZIP_CODES, BRANDS, TYPES } from '../../filter-options';
+import { ZIP_CODES } from '../../filter-options';
 
 const options = ZIP_CODES.map((item) => ({
   value: item.zip_code,
@@ -27,9 +26,17 @@ const options = ZIP_CODES.map((item) => ({
 function HomePage() {
   const dispatch = useDispatch();
 
+  const [isBrandOpen, setIsBrandOpen] = useState<boolean>(false);
+  const [isTypeOpen, setIsTypeOpen] = useState<boolean>(false);
+
   const { zip, type, brand } = useSelector((state: RootState) => state.filters);
   const employees = useSelector((state: RootState) => state.employees.employees);
   const isLoading = useSelector((state: RootState) => state.employees.isLoading);
+  const brandOptions = useSelector((state: RootState) => state.filters.brandOptions);
+  const typeOptions = useSelector((state: RootState) => state.filters.typeOptions);
+
+  const isFiltersLoading = useSelector((state: RootState) => state.filters.isLoading);
+
   const isAdditionalFiltersEnabled = useMemo(() => zip.value && employees.length, [zip, employees.length]);
 
   const getEmployees = () => dispatch(EmployeesActions.getEmployeesRequest());
@@ -45,6 +52,15 @@ function HomePage() {
     dispatch(FiltersActions.clearFilters());
     dispatch(EmployeesActions.clearList());
   };
+
+  useEffect(() => {
+    if (isBrandOpen && !brandOptions.length) {
+      dispatch(FiltersActions.getFilterOptionsRequest(Filters.brand));
+    }
+    if (isTypeOpen && !typeOptions.length) {
+      dispatch(FiltersActions.getFilterOptionsRequest(Filters.type));
+    }
+  }, [isBrandOpen, isTypeOpen, brandOptions.length, typeOptions.length]);
 
   return (
     <Container>
@@ -63,42 +79,38 @@ function HomePage() {
                 Clear filters
               </Button>
             </Box>
-
-            <Autocomplete
-              disablePortal
+            <Select
+              name={Filters.zip}
               options={options}
-              renderInput={(params) => (
-                <TextField {...params} label="Zip Code" />
-              )}
+              label="Zip"
               value={zip}
-              onChange={(event, value) => handleSelect(value, Filters.zip)}
-              clearIcon={null}
+              onChange={handleSelect}
             />
             <Box pt={5}>
               <Typography variant="h5">Additional filters</Typography>
               <br />
-              <Autocomplete
-                disablePortal
+              <Select
+                name={Filters.type}
                 disabled={!isAdditionalFiltersEnabled}
-                options={TYPES}
-                renderInput={(params) => (
-                  <TextField {...params} label="Types" />
-                )}
+                options={typeOptions}
+                label="Type"
                 value={type}
-                clearIcon={null}
-                onChange={(event, value) => handleSelect(value, Filters.type)}
+                loading={isFiltersLoading}
+                onClose={() => setIsTypeOpen(false)}
+                onOpen={() => setIsTypeOpen(true)}
+                onChange={handleSelect}
               />
               <br />
-              <Autocomplete
+              <Select
+                name={Filters.brand}
                 disabled={!isAdditionalFiltersEnabled}
-                disablePortal
-                options={BRANDS}
-                renderInput={(params) => (
-                  <TextField {...params} label="Brands" />
-                )}
+                options={brandOptions}
+                label="Brand"
                 value={brand}
-                clearIcon={null}
-                onChange={(event, value) => handleSelect(value, Filters.brand)}
+                loading={isFiltersLoading}
+                onClose={() => setIsBrandOpen(false)}
+                onOpen={() => setIsBrandOpen(true)}
+                onChange={handleSelect}
               />
               <br />
               <Button
