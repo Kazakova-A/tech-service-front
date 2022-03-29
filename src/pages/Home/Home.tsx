@@ -116,6 +116,7 @@ function HomePage() {
               onClose={() => setIsZipOpen(false)}
               inputValue={zipInput}
               onInputChange={handleInput}
+              loading={isFiltersLoading}
             />
             <Box pt={5}>
               <Typography variant="h5">Additional filters</Typography>
