@@ -5,6 +5,7 @@ import { Option, Filters } from 'store/types/filters';
 
 export interface SelectProps {
   name: Filters;
+  open?: boolean;
   disabled?: boolean;
   options: Option[];
   label: string;
@@ -14,6 +15,8 @@ export interface SelectProps {
   onOpen?:() => void;
   loading?: boolean;
   openOnFocus?: boolean;
+  inputValue?: string;
+  onInputChange?: (value: string, name: Filters) => void;
 }
 
 function Select({
@@ -27,10 +30,14 @@ function Select({
   onOpen = () => {},
   loading = false,
   openOnFocus = true,
+  inputValue = '',
+  onInputChange = () => {},
+  open,
 }: SelectProps): JSX.Element {
   return (
     <Autocomplete
       disabled={disabled}
+      open={open}
       disablePortal
       options={options}
       loading={loading}
@@ -43,6 +50,8 @@ function Select({
       onClose={onClose}
       onOpen={onOpen}
       onChange={(event, val) => onChange(val, name)}
+      inputValue={inputValue}
+      onInputChange={(event, val) => onInputChange(val, name)}
     />
   );
 }
