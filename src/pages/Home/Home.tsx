@@ -16,13 +16,6 @@ import { Option, Filters } from 'store/types/filters';
 import { EmployeesActions } from 'store/actions/employees';
 import Select from 'components/Select';
 
-import { ZIP_CODES } from '../../filter-options';
-
-const options = ZIP_CODES.map((item) => ({
-  value: item.zip_code,
-  label: `${item.zip_code} (${item.city})`,
-}));
-
 function HomePage() {
   const dispatch = useDispatch();
 
@@ -64,8 +57,10 @@ function HomePage() {
     dispatch(FiltersActions.setFiltersInputProperty({ name, value }));
 
     if (name === Filters.zip) {
-      if (value.length > 3) {
-        setIsZipOpen(true);
+      if (value) {
+        if (value.length === 3) {
+          setIsZipOpen(true);
+        }
       } else { setIsZipOpen(false); }
     }
   };
@@ -82,7 +77,17 @@ function HomePage() {
     if (isTypeOpen && !typeOptions.length) {
       dispatch(FiltersActions.getFilterOptionsRequest({ name: Filters.type }));
     }
-  }, [isBrandOpen, isTypeOpen, brandOptions.length, typeOptions.length]);
+    if (isZipOpen && String(zipInput).length === 3) {
+      dispatch(FiltersActions.getFilterOptionsRequest({ name: Filters.zip, zipValue: zipInput }));
+    }
+  }, [
+    isBrandOpen,
+    isTypeOpen,
+    brandOptions.length,
+    typeOptions.length,
+    isZipOpen,
+    zipInput,
+  ]);
 
   return (
     <Container>
@@ -104,7 +109,7 @@ function HomePage() {
             <Select
               name={Filters.zip}
               open={isZipOpen}
-              options={options}
+              options={zipOptions}
               label="Zip"
               value={selectedZip as Option}
               onChange={handleSelect}
@@ -117,7 +122,7 @@ function HomePage() {
               <br />
               <Select
                 name={Filters.type}
-                // disabled={!isAdditionalFiltersEnabled}
+                disabled={!isAdditionalFiltersEnabled}
                 options={typeOptions}
                 label="Type"
                 value={selectedType as Option}

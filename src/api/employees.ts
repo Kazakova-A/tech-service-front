@@ -7,7 +7,7 @@ import ENDPOINTS from './endpoints';
 
 export const fetchEmployees = async ({ zip, params }: GetEmployeesReq): Promise<any> => {
   try {
-    if (zip) {
+    if (zip) { // TODO: refactor thec zip existing check
       const url = params ? ENDPOINTS.getEmployeesByTypeBrand : ENDPOINTS.getEmployeesByZip;
 
       const { data: { data } }: ResponseObject<any> = await axios.get(`${url}/${zip}`, { params });

@@ -8,5 +8,4 @@ export default {
   brand: `${FILTERS}/brands`,
   type: `${FILTERS}/types`,
   zip: `${FILTERS}/zip`,
-
 };
