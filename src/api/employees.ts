@@ -7,11 +7,14 @@ import ENDPOINTS from './endpoints';
 
 export const fetchEmployees = async ({ zip, params }: GetEmployeesReq): Promise<any> => {
   try {
-    const url = params ? ENDPOINTS.getEmployeesByTypeBrand : ENDPOINTS.getEmployeesByZip;
+    if (zip) {
+      const url = params ? ENDPOINTS.getEmployeesByTypeBrand : ENDPOINTS.getEmployeesByZip;
 
-    const { data: { data } }: ResponseObject<any> = await axios.get(`${url}/${zip}`, { params });
+      const { data: { data } }: ResponseObject<any> = await axios.get(`${url}/${zip}`, { params });
 
-    return data;
+      return data;
+    }
+    return [];
   } catch (error) {
     const e = error as AxiosError<ErrorResponse>;
     throw new Error(e.response?.data?.message || '');

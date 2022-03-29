@@ -1,5 +1,7 @@
 export enum FiltersActionTypes {
-  SET_FILTERS_PROPERTY = 'SET_SELET_PROPERTY',
+  SET_FILTERS_PROPERTY = 'SET_FILTERS_PROPERTY',
+  SET_FILTERS_INPUT_PROPERTY = 'SET_FILTERS_INPUT_PROPERTY',
+
   CLEAR_FILTERS = 'CLEAR_FILTERS',
 
   GET_FILTER_OPTIONS_REQUEST = 'GET_FILTER_OPTIONS_REQUEST',
@@ -35,5 +37,15 @@ export interface SetFiltersData {
 
 export interface FilterOptionsRes {
   options: FiltersOptions[],
-  name: Filters.brand | Filters.type,
+  name: Filters,
+}
+
+export interface FilterOptionsReq {
+  zipValue?: string | null,
+  name: Filters,
+}
+
+export interface InputProperty {
+  name: Filters;
+  value: string | null;
 }

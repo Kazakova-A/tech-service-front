@@ -7,4 +7,6 @@ export default {
   getEmployeesByTypeBrand: `${FILTERS}/specialization`,
   brand: `${FILTERS}/brands`,
   type: `${FILTERS}/types`,
+  zip: `${FILTERS}/zip`,
+
 };

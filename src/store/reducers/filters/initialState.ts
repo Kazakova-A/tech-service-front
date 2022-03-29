@@ -1,17 +1,18 @@
 export const INITIAL_STATE = {
   zip: {
-    value: '',
-    label: '',
-  },
-  type: {
-    value: '',
-    label: '',
+    selected: null,
+    inputValue: '',
+    options: [],
   },
   brand: {
-    value: '',
-    label: '',
+    selected: null,
+    inputValue: '',
+    options: [],
   },
-  brandOptions: [],
-  typeOptions: [],
+  type: {
+    selected: null,
+    inputValue: '',
+    options: [],
+  },
   isLoading: false,
 };

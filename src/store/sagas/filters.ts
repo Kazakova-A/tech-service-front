@@ -15,7 +15,7 @@ FiltersActionsUnion, FiltersActionTypes.GET_FILTER_OPTIONS_REQUEST>): Generator 
     const result = (yield call(fetchFilterOptions, payload)) as FiltersOptions[];
     const successPayload: FilterOptionsRes = {
       options: result,
-      name: payload,
+      name: payload.name,
     };
     yield put(FiltersActions.getFilterOptionsSuccess(successPayload));
   } catch (error) {

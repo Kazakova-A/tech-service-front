@@ -10,20 +10,19 @@ import { EmployeesActions } from '../actions/employees';
 import { EmployeesActionTypes, GetEmployeesReq } from '../types/employees';
 import { UtilsActions } from '../actions/utils';
 import { RootState } from '../reducers';
-import { FiltersData } from '../types/filters';
 
 function* getEmployeesRequestSaga(): Generator {
   try {
-    const { zip, type, brand } = (yield select((state: RootState) => state.filters)) as FiltersData;
+    const { zip, type, brand } = (yield select((state: RootState) => state.filters)) as any;
 
     const payload: GetEmployeesReq = {
-      zip: Number(zip.value),
+      zip: Number(zip.selected?.value),
     };
 
-    if (type.value && brand.value) {
+    if (type.selected?.value && brand.selected?.value) {
       payload.params = {
-        type: type.value,
-        brand: brand.value,
+        type: type.selected?.value,
+        brand: brand.selected?.value,
       };
     }
 
