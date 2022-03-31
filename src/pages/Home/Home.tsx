@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -12,6 +12,7 @@ import {
 
 import { RootState } from 'store/reducers';
 import { FiltersActions } from 'store/actions/filters';
+import { UtilsActions } from 'store/actions/utils';
 import { Option, Filters } from 'store/types/filters';
 import { EmployeesActions } from 'store/actions/employees';
 import Select from 'components/Select';
@@ -40,35 +41,45 @@ function HomePage() {
 
   const isFiltersLoading = useSelector((state: RootState) => state.filters.isLoading);
 
-  const isAdditionalFiltersEnabled = useMemo(() => (
-    selectedZip?.value && employees.length
-  ), [selectedZip, employees.length]);
-
   const getEmployees = () => dispatch(EmployeesActions.getEmployeesRequest());
 
   const handleSelect = (value: Option | null, name: Filters) => {
     dispatch(FiltersActions.setFiltersProperty({ name, value }));
-    if (name === Filters.zip) {
-      getEmployees();
-    }
   };
 
   const handleInput = (value: string, name: Filters) => {
-    dispatch(FiltersActions.setFiltersInputProperty({ name, value }));
-
+    const payload = {
+      name,
+      value,
+    };
     if (name === Filters.zip) {
       if (value) {
+        payload.value = value.replace(/[^0-9]+/g, '');
         if (value.length === 3) {
           setIsZipOpen(true);
         }
       } else { setIsZipOpen(false); }
     }
+    dispatch(FiltersActions.setFiltersInputProperty(payload));
   };
 
   const clearFilters = () => {
     dispatch(FiltersActions.clearFilters());
     dispatch(EmployeesActions.clearList());
   };
+
+  useEffect(() => {
+    if (zipInput.length === 5) {
+      const isExist = zipOptions.find((item) => item.value === zipInput);
+
+      if (!isExist) {
+        dispatch(UtilsActions.openNotification({
+          text: "Options was't found",
+          type: 'info',
+        }));
+      }
+    }
+  }, [zipOptions, zipInput]);
 
   useEffect(() => {
     if (isBrandOpen && !brandOptions.length) {
@@ -106,6 +117,8 @@ function HomePage() {
                 Clear filters
               </Button>
             </Box>
+            {selectedZip?.city && <Typography variant="body1">{selectedZip?.city}</Typography>}
+            <br />
             <Select
               name={Filters.zip}
               open={isZipOpen}
@@ -123,7 +136,7 @@ function HomePage() {
               <br />
               <Select
                 name={Filters.type}
-                disabled={!isAdditionalFiltersEnabled}
+                disabled={!selectedZip?.value}
                 options={typeOptions}
                 label="Type"
                 value={selectedType as Option}
@@ -137,7 +150,7 @@ function HomePage() {
               <br />
               <Select
                 name={Filters.brand}
-                disabled={!isAdditionalFiltersEnabled}
+                disabled={!selectedZip?.value}
                 options={brandOptions}
                 label="Brand"
                 value={selectedBrand as Option}
@@ -151,7 +164,8 @@ function HomePage() {
               <br />
               <Button
                 variant="contained"
-                disabled={!isAdditionalFiltersEnabled || (!selectedBrand?.value || !selectedType?.value)}
+                disabled={!selectedZip?.value
+                  || (!selectedBrand?.value || !selectedType?.value)}
                 onClick={getEmployees}
               >
                 Find
