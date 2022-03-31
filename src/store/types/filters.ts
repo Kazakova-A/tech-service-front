@@ -16,6 +16,7 @@ export type Option = {
 
 export interface FiltersOptions extends Option {
   id: number;
+  city?: string;
 }
 
 export interface FiltersData {

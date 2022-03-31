@@ -65,7 +65,7 @@ const filtersReducer = (
 
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         [name]: {
           ...state[name],
           options,

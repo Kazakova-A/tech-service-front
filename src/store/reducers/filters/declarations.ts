@@ -2,7 +2,7 @@ import { Option, FiltersOptions } from 'store/types/filters';
 
 export interface FiltersState {
   zip: {
-    selected: Option | null;
+    selected: FiltersOptions | null;
     inputValue: string;
     options: FiltersOptions[];
   };
