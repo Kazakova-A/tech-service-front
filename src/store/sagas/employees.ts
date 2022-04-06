@@ -17,16 +17,11 @@ function* getEmployeesRequestSaga(): Generator {
 
     const payload: GetEmployeesReq = {
       zip: Number(zip.selected?.value),
+      type: type.selected?.value,
+      brand: brand.selected?.value,
     };
 
-    if (type.selected?.value && brand.selected?.value) {
-      payload.params = {
-        type: type.selected?.value,
-        brand: brand.selected?.value,
-      };
-    }
-
-    const result = (yield call(fetchEmployees, payload)) as any[];
+    const result = (yield call(fetchEmployees, payload)) as { [key: string]: any };
 
     yield put(EmployeesActions.getEmployeesSuccess(result));
   } catch (e) {

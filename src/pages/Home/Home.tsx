@@ -9,6 +9,7 @@ import {
   Button,
   CircularProgress,
 } from '@mui/material';
+import moment from 'moment';
 
 import { RootState } from 'store/reducers';
 import { FiltersActions } from 'store/actions/filters';
@@ -24,7 +25,7 @@ function HomePage() {
   const [isTypeOpen, setIsTypeOpen] = useState<boolean>(false);
   const [isZipOpen, setIsZipOpen] = useState<boolean>(false);
 
-  const employees = useSelector((state: RootState) => state.employees.employees);
+  const employeesSchedule = useSelector((state: RootState) => state.employees.employees);
   const isLoading = useSelector((state: RootState) => state.employees.isLoading);
 
   const selectedZip = useSelector((state: RootState) => state.filters.zip.selected);
@@ -46,6 +47,8 @@ function HomePage() {
   const handleSelect = (value: Option | null, name: Filters) => {
     dispatch(FiltersActions.setFiltersProperty({ name, value }));
   };
+
+  const dates = Object.keys(employeesSchedule);
 
   const handleInput = (value: string, name: Filters) => {
     const payload = {
@@ -172,10 +175,36 @@ function HomePage() {
               </Button>
             </Box>
           </Grid>
-          {employees?.length ? (
+          {dates?.length ? (
             <Grid item xs={8} p={2}>
               <div>
-                {employees.map((item) => (
+                {dates.map((date: string) => (
+                  <Box m={3} key={date}>
+                    <Typography>
+                      {moment(Number(date) * 1000).format('DD-MM-YYYY')}
+                    </Typography>
+                    {employeesSchedule[date].map((item: any) => (
+                      <Box m={3} key={item.employeeId}>
+                        <Box pl={2} pt={2}>
+                          <Typography>
+                            employee id:
+                            {item.employeeId}
+                          </Typography>
+                          <Box>
+                            {item.workTime.map((work: any) => (
+                              <Typography>
+                                {`${work.start}-${work.end}: `}
+                                {work.status}
+                              </Typography>
+                            ))}
+                          </Box>
+                        </Box>
+                        <Divider />
+                      </Box>
+                    ))}
+                  </Box>
+                ))}
+                {/* {employeesSchedule.map((item: any) => (
                   <Box m={3} key={item.id}>
                     <Box pl={2} pt={2}>
                       <Typography>
@@ -185,7 +214,7 @@ function HomePage() {
                     </Box>
                     <Divider />
                   </Box>
-                ))}
+                ))} */}
               </div>
             </Grid>
           ) : (

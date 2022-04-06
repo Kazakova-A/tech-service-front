@@ -8,9 +8,9 @@ export const EmployeesActions = {
   > => createAction(
     EmployeesActionTypes.GET_EMPLOYEES_REQUEST,
   ),
-  getEmployeesSuccess: (payload: any[]): Action<
+  getEmployeesSuccess: (payload: { [key: string]: any }): Action<
   EmployeesActionTypes.GET_EMPLOYEES_SUCCESS,
-  any[]
+  { [key: string]: any }
   > => createAction(
     EmployeesActionTypes.GET_EMPLOYEES_SUCCESS,
     payload,
