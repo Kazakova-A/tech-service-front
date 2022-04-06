@@ -8,8 +8,6 @@ export enum EmployeesActionTypes {
 
 export interface GetEmployeesReq {
   zip: number;
-  params?: {
-    brand: string;
-    type: string;
-  };
+  brand: string;
+  type: string;
 }
