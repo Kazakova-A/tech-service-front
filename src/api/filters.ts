@@ -1,15 +1,15 @@
 import axios, { AxiosError } from 'axios';
 
-import { Filters } from 'store/types/filters';
+import { FilterOptionsReq, FiltersOptions } from 'store/types/filters';
 
 import { ErrorResponse, ResponseObject } from './types';
 import ENDPOINTS from './endpoints';
 
-export const fetchFilterOptions = async (name: Filters.brand | Filters.type): Promise<any> => {
+export const fetchFilterOptions = async ({ name, zipValue }: FilterOptionsReq): Promise<FiltersOptions[]> => {
   try {
-    const url = ENDPOINTS[Filters[name]];
+    const url = ENDPOINTS[name];
 
-    const { data: { data } }: ResponseObject<any> = await axios.get(url);
+    const { data: { data } }: ResponseObject<any> = await axios.get(`${url}?value=${zipValue}`);
 
     return data;
   } catch (error) {

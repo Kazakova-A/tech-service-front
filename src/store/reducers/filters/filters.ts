@@ -1,5 +1,7 @@
 import {
-  FiltersActionTypes, Filters, SetFiltersData, FiltersData,
+  FiltersActionTypes,
+  Filters,
+  SetFiltersData,
 } from 'store/types/filters';
 import { FiltersActionsUnion } from 'store/actions/filters';
 
@@ -14,21 +16,34 @@ const filtersReducer = (
     case FiltersActionTypes.SET_FILTERS_PROPERTY: {
       const { name, value }: SetFiltersData = action.payload;
 
-      let changes: Partial<FiltersData> = {
-        [name]: value,
+      let changes: any = {
+        [name]: {
+          ...state[name],
+          selected: value,
+        },
       };
 
       if (name === Filters.zip) {
         changes = {
           ...changes,
-          [`${Filters.type}`]: INITIAL_STATE[`${Filters.type}`],
-          [`${Filters.brand}`]: INITIAL_STATE[`${Filters.brand}`],
+          type: { ...state.type, selected: null },
+          brand: { ...state.brand, selected: null },
         };
       }
 
       return {
         ...state,
         ...changes,
+      };
+    }
+    case FiltersActionTypes.SET_FILTERS_INPUT_PROPERTY: {
+      const { name, value } = action.payload;
+      return {
+        ...state,
+        [name]: {
+          ...state[name], inputValue: value,
+        },
+
       };
     }
     case FiltersActionTypes.CLEAR_FILTERS: {
@@ -47,15 +62,14 @@ const filtersReducer = (
     }
     case FiltersActionTypes.GET_FILTER_OPTIONS_SUCCESS: {
       const { options, name } = action.payload;
-      const key = {
-        brand: 'brandOptions',
-        type: 'typeOptions',
-      };
 
       return {
         ...state,
-        isLoading: true,
-        [key[name]]: options,
+        isLoading: false,
+        [name]: {
+          ...state[name],
+          options,
+        },
       };
     }
     case FiltersActionTypes.GET_FILTER_OPTIONS_ERROR: {

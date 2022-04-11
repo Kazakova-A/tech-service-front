@@ -3,8 +3,9 @@ import { FiltersActionTypes } from 'store/types/filters';
 
 import {
   SetFiltersData,
-  Filters,
+  FilterOptionsReq,
   FilterOptionsRes,
+  InputProperty,
 } from '../types/filters';
 
 // TODO: set valid types to payloads
@@ -16,15 +17,22 @@ export const FiltersActions = {
     FiltersActionTypes.SET_FILTERS_PROPERTY,
     payload,
   ),
+  setFiltersInputProperty: (payload: InputProperty): Action<
+  FiltersActionTypes.SET_FILTERS_INPUT_PROPERTY,
+  InputProperty
+  > => createAction(
+    FiltersActionTypes.SET_FILTERS_INPUT_PROPERTY,
+    payload,
+  ),
   clearFilters: (): Action<
   FiltersActionTypes.CLEAR_FILTERS
   > => createAction(
     FiltersActionTypes.CLEAR_FILTERS,
   ),
 
-  getFilterOptionsRequest: (payload: Filters.brand | Filters.type): Action<
+  getFilterOptionsRequest: (payload: FilterOptionsReq): Action<
   FiltersActionTypes.GET_FILTER_OPTIONS_REQUEST,
-  Filters.brand | Filters.type
+  FilterOptionsReq
   > => createAction(
     FiltersActionTypes.GET_FILTER_OPTIONS_REQUEST,
     payload,

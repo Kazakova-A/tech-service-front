@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -9,43 +9,61 @@ import {
   Button,
   CircularProgress,
 } from '@mui/material';
+import moment from 'moment';
 
 import { RootState } from 'store/reducers';
 import { FiltersActions } from 'store/actions/filters';
+import { UtilsActions } from 'store/actions/utils';
 import { Option, Filters } from 'store/types/filters';
 import { EmployeesActions } from 'store/actions/employees';
 import Select from 'components/Select';
-
-import { ZIP_CODES } from '../../filter-options';
-
-const options = ZIP_CODES.map((item) => ({
-  value: item.zip_code,
-  label: `${item.zip_code} (${item.city})`,
-}));
 
 function HomePage() {
   const dispatch = useDispatch();
 
   const [isBrandOpen, setIsBrandOpen] = useState<boolean>(false);
   const [isTypeOpen, setIsTypeOpen] = useState<boolean>(false);
+  const [isZipOpen, setIsZipOpen] = useState<boolean>(false);
 
-  const { zip, type, brand } = useSelector((state: RootState) => state.filters);
-  const employees = useSelector((state: RootState) => state.employees.employees);
+  const employeesSchedule = useSelector((state: RootState) => state.employees.employees);
   const isLoading = useSelector((state: RootState) => state.employees.isLoading);
-  const brandOptions = useSelector((state: RootState) => state.filters.brandOptions);
-  const typeOptions = useSelector((state: RootState) => state.filters.typeOptions);
+
+  const selectedZip = useSelector((state: RootState) => state.filters.zip.selected);
+  const selectedType = useSelector((state: RootState) => state.filters.type.selected);
+  const selectedBrand = useSelector((state: RootState) => state.filters.brand.selected);
+
+  const zipInput = useSelector((state: RootState) => state.filters.zip.inputValue);
+  const typeInput = useSelector((state: RootState) => state.filters.type.inputValue);
+  const brandInput = useSelector((state: RootState) => state.filters.brand.inputValue);
+
+  const brandOptions = useSelector((state: RootState) => state.filters.brand.options);
+  const typeOptions = useSelector((state: RootState) => state.filters.type.options);
+  const zipOptions = useSelector((state: RootState) => state.filters.zip.options);
 
   const isFiltersLoading = useSelector((state: RootState) => state.filters.isLoading);
-
-  const isAdditionalFiltersEnabled = useMemo(() => zip.value && employees.length, [zip, employees.length]);
 
   const getEmployees = () => dispatch(EmployeesActions.getEmployeesRequest());
 
   const handleSelect = (value: Option | null, name: Filters) => {
     dispatch(FiltersActions.setFiltersProperty({ name, value }));
+  };
+
+  const dates = Object.keys(employeesSchedule);
+
+  const handleInput = (value: string, name: Filters) => {
+    const payload = {
+      name,
+      value,
+    };
     if (name === Filters.zip) {
-      getEmployees();
+      if (value) {
+        payload.value = value.replace(/[^0-9]+/g, '');
+        if (value.length === 3) {
+          setIsZipOpen(true);
+        }
+      } else { setIsZipOpen(false); }
     }
+    dispatch(FiltersActions.setFiltersInputProperty(payload));
   };
 
   const clearFilters = () => {
@@ -54,13 +72,36 @@ function HomePage() {
   };
 
   useEffect(() => {
+    if (zipInput.length === 5) {
+      const isExist = zipOptions.find((item) => item.value === zipInput);
+
+      if (!isExist) {
+        dispatch(UtilsActions.openNotification({
+          text: "Options was't found",
+          type: 'info',
+        }));
+      }
+    }
+  }, [zipOptions, zipInput]);
+
+  useEffect(() => {
     if (isBrandOpen && !brandOptions.length) {
-      dispatch(FiltersActions.getFilterOptionsRequest(Filters.brand));
+      dispatch(FiltersActions.getFilterOptionsRequest({ name: Filters.brand }));
     }
     if (isTypeOpen && !typeOptions.length) {
-      dispatch(FiltersActions.getFilterOptionsRequest(Filters.type));
+      dispatch(FiltersActions.getFilterOptionsRequest({ name: Filters.type }));
     }
-  }, [isBrandOpen, isTypeOpen, brandOptions.length, typeOptions.length]);
+    if (isZipOpen && String(zipInput).length === 3) {
+      dispatch(FiltersActions.getFilterOptionsRequest({ name: Filters.zip, zipValue: zipInput }));
+    }
+  }, [
+    isBrandOpen,
+    isTypeOpen,
+    brandOptions.length,
+    typeOptions.length,
+    isZipOpen,
+    zipInput,
+  ]);
 
   return (
     <Container>
@@ -79,54 +120,92 @@ function HomePage() {
                 Clear filters
               </Button>
             </Box>
+            {selectedZip?.city && <Typography variant="body1">{selectedZip?.city}</Typography>}
+            <br />
             <Select
               name={Filters.zip}
-              options={options}
+              open={isZipOpen}
+              options={zipOptions}
               label="Zip"
-              value={zip}
+              value={selectedZip as Option}
               onChange={handleSelect}
+              onClose={() => setIsZipOpen(false)}
+              inputValue={zipInput}
+              onInputChange={handleInput}
+              loading={isFiltersLoading}
             />
             <Box pt={5}>
               <Typography variant="h5">Additional filters</Typography>
               <br />
               <Select
                 name={Filters.type}
-                disabled={!isAdditionalFiltersEnabled}
+                disabled={!selectedZip?.value}
                 options={typeOptions}
                 label="Type"
-                value={type}
+                value={selectedType as Option}
                 loading={isFiltersLoading}
                 onClose={() => setIsTypeOpen(false)}
                 onOpen={() => setIsTypeOpen(true)}
                 onChange={handleSelect}
+                inputValue={typeInput}
+                onInputChange={handleInput}
               />
               <br />
               <Select
                 name={Filters.brand}
-                disabled={!isAdditionalFiltersEnabled}
+                disabled={!selectedZip?.value}
                 options={brandOptions}
                 label="Brand"
-                value={brand}
+                value={selectedBrand as Option}
                 loading={isFiltersLoading}
                 onClose={() => setIsBrandOpen(false)}
                 onOpen={() => setIsBrandOpen(true)}
                 onChange={handleSelect}
+                inputValue={brandInput}
+                onInputChange={handleInput}
               />
               <br />
               <Button
                 variant="contained"
-                disabled={!isAdditionalFiltersEnabled || (!brand.value || !type.value)}
+                disabled={!selectedZip?.value
+                  || (!selectedBrand?.value || !selectedType?.value)}
                 onClick={getEmployees}
               >
                 Find
               </Button>
             </Box>
           </Grid>
-          {employees?.length ? (
+          {dates?.length ? (
             <Grid item xs={8} p={2}>
               <div>
-                {employees.map((item) => (
-                  <Box m={3}>
+                {dates.map((date: string) => (
+                  <Box m={3} key={date}>
+                    <Typography>
+                      {moment(Number(date) * 1000).format('DD-MM-YYYY')}
+                    </Typography>
+                    {employeesSchedule[date].map((item: any) => (
+                      <Box m={3} key={item.employeeId}>
+                        <Box pl={2} pt={2}>
+                          <Typography>
+                            employee id:
+                            {item.employeeId}
+                          </Typography>
+                          <Box>
+                            {item.workTime.map((work: any) => (
+                              <Typography>
+                                {`${work.start}-${work.end}: `}
+                                {work.status}
+                              </Typography>
+                            ))}
+                          </Box>
+                        </Box>
+                        <Divider />
+                      </Box>
+                    ))}
+                  </Box>
+                ))}
+                {/* {employeesSchedule.map((item: any) => (
+                  <Box m={3} key={item.id}>
                     <Box pl={2} pt={2}>
                       <Typography>
                         employee id:
@@ -135,7 +214,7 @@ function HomePage() {
                     </Box>
                     <Divider />
                   </Box>
-                ))}
+                ))} */}
               </div>
             </Grid>
           ) : (
