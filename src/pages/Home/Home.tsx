@@ -42,7 +42,7 @@ function HomePage() {
 
   const isFiltersLoading = useSelector((state: RootState) => state.filters.isLoading);
 
-  const getEmployees = () => dispatch(EmployeesActions.getEmployeesRequest());
+  const getEmployeesScheduled = () => dispatch(EmployeesActions.getEmployeesScheduledRequest());
 
   const handleSelect = (value: Option | null, name: Filters) => {
     dispatch(FiltersActions.setFiltersProperty({ name, value }));
@@ -169,7 +169,7 @@ function HomePage() {
                 variant="contained"
                 disabled={!selectedZip?.value
                   || (!selectedBrand?.value || !selectedType?.value)}
-                onClick={getEmployees}
+                onClick={getEmployeesScheduled}
               >
                 Find
               </Button>
@@ -181,7 +181,7 @@ function HomePage() {
                 {dates.map((date: string) => (
                   <Box m={3} key={date}>
                     <Typography>
-                      {moment(Number(date) * 1000).format('DD-MM-YYYY')}
+                      {moment(date).format('DD-MM-YYYY')}
                     </Typography>
                     {employeesSchedule[date].map((item: any) => (
                       <Box m={3} key={item.employeeId}>

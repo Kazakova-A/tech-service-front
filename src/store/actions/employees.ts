@@ -1,29 +1,46 @@
 import { Action, ActionsUnion, createAction } from 'store/helpers/redux';
-import { EmployeesActionTypes } from 'store/types/employees';
+import { EmployeessActionTypes } from 'store/types/employees';
 
 // TODO: set valid types to payloads
 export const EmployeesActions = {
-  getEmployeesRequest: (): Action<
-  EmployeesActionTypes.GET_EMPLOYEES_REQUEST
+  getEmployeesScheduledRequest: (): Action<
+  EmployeessActionTypes.GET_EMPLOYEES_SCHEDULED_REQUEST
   > => createAction(
-    EmployeesActionTypes.GET_EMPLOYEES_REQUEST,
+    EmployeessActionTypes.GET_EMPLOYEES_SCHEDULED_REQUEST,
   ),
-  getEmployeesSuccess: (payload: { [key: string]: any }): Action<
-  EmployeesActionTypes.GET_EMPLOYEES_SUCCESS,
+  getEmployeesScheduledSuccess: (payload: { [key: string]: any }): Action<
+  EmployeessActionTypes.GET_EMPLOYEES_SCHEDULED_SUCCESS,
   { [key: string]: any }
   > => createAction(
-    EmployeesActionTypes.GET_EMPLOYEES_SUCCESS,
+    EmployeessActionTypes.GET_EMPLOYEES_SCHEDULED_SUCCESS,
     payload,
   ),
-  getEmployeesError: (): Action<
-  EmployeesActionTypes.GET_EMPLOYEES_ERROR
+  getEmployeesScheduledError: (): Action<
+  EmployeessActionTypes.GET_EMPLOYEES_SCHEDULED_ERROR
   > => createAction(
-    EmployeesActionTypes.GET_EMPLOYEES_ERROR,
+    EmployeessActionTypes.GET_EMPLOYEES_SCHEDULED_ERROR,
+  ),
+  getEmployeesListRequest: (): Action<
+  EmployeessActionTypes.GET_EMPLOYEES_LIST_REQUEST
+  > => createAction(
+    EmployeessActionTypes.GET_EMPLOYEES_LIST_REQUEST,
+  ),
+  getEmployeesListSuccess: (payload: { [key: string]: any }): Action<
+  EmployeessActionTypes.GET_EMPLOYEES_LIST_SUCCESS,
+  { [key: string]: any }
+  > => createAction(
+    EmployeessActionTypes.GET_EMPLOYEES_LIST_SUCCESS,
+    payload,
+  ),
+  getEmployeesListError: (): Action<
+  EmployeessActionTypes.GET_EMPLOYEES_LIST_ERROR
+  > => createAction(
+    EmployeessActionTypes.GET_EMPLOYEES_LIST_ERROR,
   ),
   clearList: (): Action<
-  EmployeesActionTypes.CLEAR_LIST
+  EmployeessActionTypes.CLEAR_LIST
   > => createAction(
-    EmployeesActionTypes.CLEAR_LIST,
+    EmployeessActionTypes.CLEAR_LIST,
   ),
 };
 
