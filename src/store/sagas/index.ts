@@ -4,6 +4,7 @@ import { createBrowserHistory } from 'history';
 
 import employees from './employees';
 import filters from './filters';
+import jobs from './jobs';
 
 export const history = createBrowserHistory();
 
@@ -12,5 +13,6 @@ export default function* staticSagas(): Generator {
     routerMiddleware(history),
     employees(),
     filters(),
+    jobs(),
   ]);
 }
