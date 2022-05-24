@@ -9,6 +9,8 @@ import { utils } from './utils';
 import { EmployeesState } from './employees/declarations';
 import { UtilsState } from './utils/declarations';
 import { FiltersState } from './filters/declarations';
+import { JobsState } from './jobs/declarations';
+import { jobs } from './jobs';
 
 interface StoreEnhancerState {}
 
@@ -16,6 +18,7 @@ export interface RootState extends StoreEnhancerState {
   employees: EmployeesState;
   filters: FiltersState;
   utils: UtilsState;
+  jobs: JobsState;
 }
 
 const rootReducer = (history: History) => combineReducers({
@@ -23,6 +26,7 @@ const rootReducer = (history: History) => combineReducers({
   employees,
   filters,
   utils,
+  jobs,
 });
 
 export default rootReducer;
