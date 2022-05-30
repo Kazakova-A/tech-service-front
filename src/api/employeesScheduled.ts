@@ -1,11 +1,12 @@
 import axios, { AxiosError } from 'axios';
-import { GetEmployeesRes } from 'store/types/employees';
+import { EmployeesScheduledRes } from 'store/types/employeesScheduled';
+
 import { ErrorResponse, ResponseObject } from './types';
 import ENDPOINTS from './endpoints';
 
-export const fetchEmployeesList = async (params: GetEmployeesRes): Promise<any> => {
+export const fetchEmployeesScheduled = async (params: EmployeesScheduledRes): Promise<any> => {
   try {
-    const url = ENDPOINTS.getEmployeesList;
+    const url = ENDPOINTS.getFilteredEmployeesSchedule;
     const { data: { data } }: ResponseObject<any> = await axios.get(`${url}`, { params });
 
     return data;

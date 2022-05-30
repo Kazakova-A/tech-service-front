@@ -1,29 +1,29 @@
 import { Action, ActionsUnion, createAction } from 'store/helpers/redux';
-import { EmployeesActionTypes } from 'store/types/employees';
+import { EmployeessActionTypes, GetEmployeesRes } from 'store/types/employees';
 
 // TODO: set valid types to payloads
 export const EmployeesActions = {
-  getEmployeesRequest: (): Action<
-  EmployeesActionTypes.GET_EMPLOYEES_REQUEST
+  getEmployeesListRequest: (): Action<
+  EmployeessActionTypes.GET_EMPLOYEES_LIST_REQUEST
   > => createAction(
-    EmployeesActionTypes.GET_EMPLOYEES_REQUEST,
+    EmployeessActionTypes.GET_EMPLOYEES_LIST_REQUEST,
   ),
-  getEmployeesSuccess: (payload: { [key: string]: any }): Action<
-  EmployeesActionTypes.GET_EMPLOYEES_SUCCESS,
-  { [key: string]: any }
+  getEmployeesListSuccess: (payload: GetEmployeesRes[]): Action<
+  EmployeessActionTypes.GET_EMPLOYEES_LIST_SUCCESS,
+  GetEmployeesRes[]
   > => createAction(
-    EmployeesActionTypes.GET_EMPLOYEES_SUCCESS,
+    EmployeessActionTypes.GET_EMPLOYEES_LIST_SUCCESS,
     payload,
   ),
-  getEmployeesError: (): Action<
-  EmployeesActionTypes.GET_EMPLOYEES_ERROR
+  getEmployeesListError: (): Action<
+  EmployeessActionTypes.GET_EMPLOYEES_LIST_ERROR
   > => createAction(
-    EmployeesActionTypes.GET_EMPLOYEES_ERROR,
+    EmployeessActionTypes.GET_EMPLOYEES_LIST_ERROR,
   ),
   clearList: (): Action<
-  EmployeesActionTypes.CLEAR_LIST
+  EmployeessActionTypes.CLEAR_LIST
   > => createAction(
-    EmployeesActionTypes.CLEAR_LIST,
+    EmployeessActionTypes.CLEAR_LIST,
   ),
 };
 
