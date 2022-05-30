@@ -9,25 +9,6 @@ const employeesReducer = (
   action: EmployeesActionsUnion,
 ): EmployeesState => {
   switch (action?.type) {
-    case EmployeessActionTypes.GET_EMPLOYEES_SCHEDULED_REQUEST: {
-      return {
-        ...state,
-        isLoading: true,
-      };
-    }
-    case EmployeessActionTypes.GET_EMPLOYEES_SCHEDULED_SUCCESS: {
-      return {
-        ...state,
-        employees: action.payload,
-        isLoading: false,
-      };
-    }
-    case EmployeessActionTypes.GET_EMPLOYEES_SCHEDULED_ERROR: {
-      return {
-        ...state,
-        isLoading: false,
-      };
-    }
     case EmployeessActionTypes.GET_EMPLOYEES_LIST_REQUEST: {
       return {
         ...state,

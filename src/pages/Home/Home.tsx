@@ -15,8 +15,8 @@ import { RootState } from 'store/reducers';
 import { FiltersActions } from 'store/actions/filters';
 import { UtilsActions } from 'store/actions/utils';
 import { Option, Filters } from 'store/types/filters';
-import { EmployeesActions } from 'store/actions/employees';
 import Select from 'components/Select';
+import { EmployeesScheduledActions } from 'store/actions/employeesScheduled';
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -25,8 +25,8 @@ function HomePage() {
   const [isTypeOpen, setIsTypeOpen] = useState<boolean>(false);
   const [isZipOpen, setIsZipOpen] = useState<boolean>(false);
 
-  const employeesSchedule = useSelector((state: RootState) => state.employees.employees);
-  const isLoading = useSelector((state: RootState) => state.employees.isLoading);
+  const employeesSchedule = useSelector((state: RootState) => state.employeesScheduled.employeesScheduled);
+  const isLoading = useSelector((state: RootState) => state.employeesScheduled.isLoading);
 
   const selectedZip = useSelector((state: RootState) => state.filters.zip.selected);
   const selectedType = useSelector((state: RootState) => state.filters.type.selected);
@@ -42,7 +42,7 @@ function HomePage() {
 
   const isFiltersLoading = useSelector((state: RootState) => state.filters.isLoading);
 
-  const getEmployeesScheduled = () => dispatch(EmployeesActions.getEmployeesScheduledRequest());
+  const getEmployeesScheduled = () => dispatch(EmployeesScheduledActions.getEmployeesScheduledRequest());
 
   const handleSelect = (value: Option | null, name: Filters) => {
     dispatch(FiltersActions.setFiltersProperty({ name, value }));
@@ -66,9 +66,13 @@ function HomePage() {
     dispatch(FiltersActions.setFiltersInputProperty(payload));
   };
 
+  const handleClick = () => {
+
+  };
+
   const clearFilters = () => {
     dispatch(FiltersActions.clearFilters());
-    dispatch(EmployeesActions.clearList());
+    dispatch(EmployeesScheduledActions.clearEmployeesScheduledList());
   };
 
   useEffect(() => {
@@ -197,6 +201,15 @@ function HomePage() {
                                 {work.status}
                               </Typography>
                             ))}
+                            <Box mt={3} mb={5}>
+                              <Button
+                                size="small"
+                                variant="contained"
+                                onClick={handleClick}
+                              >
+                                Create Jobs
+                              </Button>
+                            </Box>
                           </Box>
                         </Box>
                         <Divider />
