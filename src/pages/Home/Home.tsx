@@ -17,8 +17,9 @@ import { UtilsActions } from 'store/actions/utils';
 import { Option, Filters } from 'store/types/filters';
 import Select from 'components/Select';
 import { EmployeesScheduledActions } from 'store/actions/employeesScheduled';
+import { JobsActions } from 'store/actions/jobs';
 
-function HomePage() {
+function Home() {
   const dispatch = useDispatch();
 
   const [isBrandOpen, setIsBrandOpen] = useState<boolean>(false);
@@ -66,8 +67,16 @@ function HomePage() {
     dispatch(FiltersActions.setFiltersInputProperty(payload));
   };
 
-  const handleClick = () => {
-
+  const handleClick = (employeeId: number, scheduledStart: any, scheduledEnd: any) => {
+    const current = {
+      customerId: 1,
+      employeeId,
+      brand: brandInput,
+      scheduledStart,
+      scheduledEnd,
+      technicTypes: typeInput,
+    };
+    dispatch(JobsActions.addJobsRequest(current));
   };
 
   const clearFilters = () => {
@@ -196,20 +205,23 @@ function HomePage() {
                           </Typography>
                           <Box>
                             {item.workTime.map((work: any) => (
-                              <Typography>
-                                {`${work.start}-${work.end}: `}
-                                {work.status}
-                              </Typography>
+                              <div>
+                                <Typography>
+                                  {`${work.start}-${work.end}: `}
+                                  {work.status}
+                                </Typography>
+                                <Box mt={3} mb={5}>
+                                  <Button
+                                    size="small"
+                                    variant="contained"
+                                    onClick={() => handleClick(item.employeeId, work.start, work.end)}
+                                    disabled={work.status !== 'available'}
+                                  >
+                                    Create Jobs
+                                  </Button>
+                                </Box>
+                              </div>
                             ))}
-                            <Box mt={3} mb={5}>
-                              <Button
-                                size="small"
-                                variant="contained"
-                                onClick={handleClick}
-                              >
-                                Create Jobs
-                              </Button>
-                            </Box>
                           </Box>
                         </Box>
                         <Divider />
@@ -217,17 +229,6 @@ function HomePage() {
                     ))}
                   </Box>
                 ))}
-                {/* {employeesSchedule.map((item: any) => (
-                  <Box m={3} key={item.id}>
-                    <Box pl={2} pt={2}>
-                      <Typography>
-                        employee id:
-                        {item.id}
-                      </Typography>
-                    </Box>
-                    <Divider />
-                  </Box>
-                ))} */}
               </div>
             </Grid>
           ) : (
@@ -241,4 +242,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Home;

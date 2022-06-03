@@ -28,6 +28,25 @@ const jobsReducer = (
         isLoading: false,
       };
     }
+    case JobsActionTypes.ADD_JOBS_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case JobsActionTypes.ADD_JOBS_SUCCESS: {
+      return {
+        ...state,
+        addedJobs: action.payload,
+        isLoading: false,
+      };
+    }
+    case JobsActionTypes.ADD_JOBS_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+      };
+    }
     case JobsActionTypes.CLEAR_LIST: {
       return {
         ...state,

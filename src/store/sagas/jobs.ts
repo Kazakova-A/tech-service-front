@@ -4,9 +4,9 @@ import {
   call,
 } from 'redux-saga/effects';
 
-import { fetchJobsList } from 'api/jobs';
+import { fetchAddJobs, fetchJobsList } from 'api/jobs';
 import { JobsActions } from '../actions/jobs';
-import { GetJobsRes, JobsActionTypes } from '../types/jobs';
+import { AddJobsRes, GetJobsRes, JobsActionTypes } from '../types/jobs';
 import { UtilsActions } from '../actions/utils';
 
 function* getJobsListRequestSaga(): Generator {
@@ -34,8 +34,18 @@ function* getJobsListRequestSaga(): Generator {
   }
 }
 
+function* addJobsRequestSaga(payload: any): Generator {
+  try {
+    const result = (yield call(fetchAddJobs, payload)) as AddJobsRes;
+    yield put(JobsActions.addJobsSuccess(result));
+  } catch (e) {
+    yield put(JobsActions.addJobsError());
+  }
+}
+
 function* watch(): Generator {
   yield takeLatest(JobsActionTypes.GET_JOBS_LIST_REQUEST, getJobsListRequestSaga);
+  yield takeLatest(JobsActionTypes.ADD_JOBS_REQUEST, addJobsRequestSaga);
 }
 
 export default watch;
