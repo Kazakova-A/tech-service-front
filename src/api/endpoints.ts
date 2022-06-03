@@ -13,6 +13,6 @@ export default {
   brand: `${FILTERS}/brands`,
   type: `${FILTERS}/types`,
   zip: `${FILTERS}/zip`,
-  // createJob: `${JOBS}`, // example;
+  addJob: `${JOBS}`,
   getEmployeesList: `${BASE_URL}/employeesList`,
 };

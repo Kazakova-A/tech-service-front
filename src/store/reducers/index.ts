@@ -14,7 +14,7 @@ import { jobs } from './jobs';
 import { employeesScheduled } from './employeesScheduled';
 import { EmployeesScheduledState } from './employeesScheduled/declarations';
 
-interface StoreEnhancerState {}
+interface StoreEnhancerState { }
 
 export interface RootState extends StoreEnhancerState {
   employees: EmployeesState;
