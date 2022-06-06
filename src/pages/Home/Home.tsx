@@ -194,7 +194,7 @@ function Home() {
                 {dates.map((date: string) => (
                   <Box m={3} key={date}>
                     <Typography>
-                      {moment(date).format('DD-MM-YYYY')}
+                      {moment(Number(date) * 1000).format('DD-MM-YYYY')}
                     </Typography>
                     {employeesSchedule[date].map((item: any) => (
                       <Box m={3} key={item.employeeId}>
