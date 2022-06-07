@@ -5,6 +5,7 @@ import {
 } from 'redux-saga/effects';
 
 import { fetchAddJobs, fetchJobsList } from 'api/jobs';
+import { EmployeesScheduledActions } from 'store/actions/employeesScheduled';
 import { JobsActions } from '../actions/jobs';
 import { AddJobsRes, GetJobsRes, JobsActionTypes } from '../types/jobs';
 import { UtilsActions } from '../actions/utils';
@@ -38,6 +39,7 @@ function* addJobsRequestSaga(payload: any): Generator {
   try {
     const result = (yield call(fetchAddJobs, payload)) as AddJobsRes;
     yield put(JobsActions.addJobsSuccess(result));
+    yield put(EmployeesScheduledActions.getEmployeesScheduledRequest());
   } catch (e) {
     yield put(JobsActions.addJobsError());
   }

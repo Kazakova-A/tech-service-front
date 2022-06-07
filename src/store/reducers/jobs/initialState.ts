@@ -5,8 +5,8 @@ export const INITIAL_STATE = {
     customerId: 1,
     employeeId: 1,
     brand: 'brand',
-    scheduledStart: null,
-    scheduledEnd: null,
+    scheduledStart: 12,
+    scheduledEnd: 14,
     technicTypes: 'type',
   },
 };

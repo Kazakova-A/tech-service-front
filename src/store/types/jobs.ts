@@ -5,21 +5,19 @@ export enum JobsActionTypes {
   ADD_JOBS_REQUEST = 'ADD_JOBS_REQUEST',
   ADD_JOBS_SUCCESS = 'ADD_JOBS_SUCCESS',
   ADD_JOBS_ERROR = 'ADD_JOBS_ERROR',
-
   CLEAR_LIST = 'CLEAR_LIST',
-  employeeId = 'employeeId',
 }
 
 export interface GetJobsRes {
   customerId: number;
   workStatus: string;
-  startedAt: Date ;
-  completedAt: Date ;
+  startedAt: Date;
+  completedAt: Date;
   employeeId: number;
-  diagnosticSpentTime: number ;
+  diagnosticSpentTime: number;
   brand: string;
-  scheduledStart: Date ;
-  scheduledEnd: Date ;
+  scheduledStart: number;
+  scheduledEnd: number;
   technicTypes: string;
 }
 
@@ -27,7 +25,7 @@ export interface AddJobsRes {
   customerId?: number;
   employeeId: number;
   brand: string;
-  scheduledStart?: Date | null;
-  scheduledEnd?:Date | null ;
+  scheduledStart: number;
+  scheduledEnd: number;
   technicTypes: string;
 }
