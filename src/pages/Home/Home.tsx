@@ -67,18 +67,20 @@ function Home() {
     dispatch(FiltersActions.setFiltersInputProperty(payload));
   };
 
-  const handleClick = (employeeId: number, scheduledStart: any, scheduledEnd: any) => {
+  const handleClick = (employeeId: number, scheduledStart: number, scheduledEnd: number, date: string) => {
+    const startData = moment(Number(date) * 1000).add(scheduledStart, 'hours').valueOf() / 1000;
+    const endData = moment(Number(date) * 1000).add(scheduledEnd, 'hours').valueOf() / 1000;
+
     const current = {
       customerId: 1,
       employeeId,
       brand: brandInput,
-      scheduledStart,
-      scheduledEnd,
+      scheduledStart: startData,
+      scheduledEnd: endData,
       technicTypes: typeInput,
     };
     dispatch(JobsActions.addJobsRequest(current));
   };
-
   const clearFilters = () => {
     dispatch(FiltersActions.clearFilters());
     dispatch(EmployeesScheduledActions.clearEmployeesScheduledList());
@@ -194,7 +196,7 @@ function Home() {
                 {dates.map((date: string) => (
                   <Box m={3} key={date}>
                     <Typography>
-                      {moment(date).format('DD-MM-YYYY')}
+                      {moment(Number(date) * 1000).format('DD-MM-YYYY')}
                     </Typography>
                     {employeesSchedule[date].map((item: any) => (
                       <Box m={3} key={item.employeeId}>
@@ -214,7 +216,7 @@ function Home() {
                                   <Button
                                     size="small"
                                     variant="contained"
-                                    onClick={() => handleClick(item.employeeId, work.start, work.end)}
+                                    onClick={() => handleClick(item.employeeId, work.start, work.end, date)}
                                     disabled={work.status !== 'available'}
                                   >
                                     Create Jobs
