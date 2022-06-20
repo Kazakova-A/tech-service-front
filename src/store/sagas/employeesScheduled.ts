@@ -7,6 +7,9 @@ import {
 
 import { fetchEmployeesScheduled } from 'api/employeesScheduled';
 import { EmployeesScheduledActionTypes } from 'store/types/employeesScheduled';
+import { CurrentAddressActionTypes, CurrentAddressRes } from 'store/types/currentAddress';
+import { CurrentAddressActions } from 'store/actions/currentAddress';
+import { fetchCurrentAddress } from 'api/currentAddress';
 import { EmployeesScheduledActions } from '../actions/employeesScheduled';
 import {
   EmployeesScheduledRes,

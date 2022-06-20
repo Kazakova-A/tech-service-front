@@ -13,6 +13,8 @@ import { JobsState } from './jobs/declarations';
 import { jobs } from './jobs';
 import { employeesScheduled } from './employeesScheduled';
 import { EmployeesScheduledState } from './employeesScheduled/declarations';
+import { currentAddress } from './currentAddress';
+import { CurrentAddressState } from './currentAddress/declarations';
 
 interface StoreEnhancerState { }
 
@@ -22,6 +24,7 @@ export interface RootState extends StoreEnhancerState {
   utils: UtilsState;
   jobs: JobsState;
   employeesScheduled: EmployeesScheduledState;
+  currentAddress: CurrentAddressState;
 }
 
 const rootReducer = (history: History) => combineReducers({
@@ -31,6 +34,7 @@ const rootReducer = (history: History) => combineReducers({
   utils,
   jobs,
   employeesScheduled,
+  currentAddress,
 });
 
 export default rootReducer;

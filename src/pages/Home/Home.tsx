@@ -17,7 +17,7 @@ import { UtilsActions } from 'store/actions/utils';
 import { Option, Filters } from 'store/types/filters';
 import Select from 'components/Select';
 import { EmployeesScheduledActions } from 'store/actions/employeesScheduled';
-import { JobsActions } from 'store/actions/jobs';
+import CurrentAddress from 'components/CurrentAddress';
 
 function Home() {
   const dispatch = useDispatch();
@@ -28,7 +28,6 @@ function Home() {
 
   const employeesSchedule = useSelector((state: RootState) => state.employeesScheduled.employeesScheduled);
   const isLoading = useSelector((state: RootState) => state.employeesScheduled.isLoading);
-
   const selectedZip = useSelector((state: RootState) => state.filters.zip.selected);
   const selectedType = useSelector((state: RootState) => state.filters.type.selected);
   const selectedBrand = useSelector((state: RootState) => state.filters.brand.selected);
@@ -42,7 +41,6 @@ function Home() {
   const zipOptions = useSelector((state: RootState) => state.filters.zip.options);
 
   const isFiltersLoading = useSelector((state: RootState) => state.filters.isLoading);
-
   const getEmployeesScheduled = () => dispatch(EmployeesScheduledActions.getEmployeesScheduledRequest());
 
   const handleSelect = (value: Option | null, name: Filters) => {
@@ -67,20 +65,6 @@ function Home() {
     dispatch(FiltersActions.setFiltersInputProperty(payload));
   };
 
-  const handleClick = (employeeId: number, scheduledStart: number, scheduledEnd: number, date: string) => {
-    const startData = moment(Number(date) * 1000).add(scheduledStart, 'hours').valueOf() / 1000;
-    const endData = moment(Number(date) * 1000).add(scheduledEnd, 'hours').valueOf() / 1000;
-
-    const current = {
-      customerId: 1,
-      employeeId,
-      brand: brandInput,
-      scheduledStart: startData,
-      scheduledEnd: endData,
-      technicTypes: typeInput,
-    };
-    dispatch(JobsActions.addJobsRequest(current));
-  };
   const clearFilters = () => {
     dispatch(FiltersActions.clearFilters());
     dispatch(EmployeesScheduledActions.clearEmployeesScheduledList());
@@ -192,46 +176,7 @@ function Home() {
           </Grid>
           {dates?.length ? (
             <Grid item xs={8} p={2}>
-              <div>
-                {dates.map((date: string) => (
-                  <Box m={3} key={date}>
-                    <Typography>
-                      {moment(Number(date) * 1000).format('DD-MM-YYYY')}
-                    </Typography>
-                    {employeesSchedule[date].map((item: any) => (
-                      <Box m={3} key={item.employeeId}>
-                        <Box pl={2} pt={2}>
-                          <Typography>
-                            employee id:
-                            {item.employeeId}
-                          </Typography>
-                          <Box>
-                            {item.workTime.map((work: any) => (
-                              <div>
-                                <Typography>
-                                  {`${work.start}-${work.end}: `}
-                                  {work.status}
-                                </Typography>
-                                <Box mt={3} mb={5}>
-                                  <Button
-                                    size="small"
-                                    variant="contained"
-                                    onClick={() => handleClick(item.employeeId, work.start, work.end, date)}
-                                    disabled={work.status !== 'available'}
-                                  >
-                                    Create Jobs
-                                  </Button>
-                                </Box>
-                              </div>
-                            ))}
-                          </Box>
-                        </Box>
-                        <Divider />
-                      </Box>
-                    ))}
-                  </Box>
-                ))}
-              </div>
+              <CurrentAddress />
             </Grid>
           ) : (
             <Box p={3}>
