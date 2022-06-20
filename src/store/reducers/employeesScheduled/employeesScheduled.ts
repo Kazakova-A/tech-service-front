@@ -1,7 +1,11 @@
 import { EmployeesScheduledActionTypes } from 'store/types/employeesScheduled';
 import { EmployeesScheduledActionsUnion } from 'store/actions/employeesScheduled';
-import { INITIAL_STATE } from './initialState';
 import { EmployeesScheduledState } from './declarations';
+
+export const INITIAL_STATE = {
+  isLoading: false,
+  employeesScheduled: [],
+};
 
 const employeesScheduledReducer = (
   state = INITIAL_STATE,
@@ -30,7 +34,7 @@ const employeesScheduledReducer = (
     case EmployeesScheduledActionTypes.CLEAR_EMPLOYEES_SCHEDULED_LIST: {
       return {
         ...state,
-        employeesScheduled: {},
+        employeesScheduled: [],
       };
     }
     default: return state;
