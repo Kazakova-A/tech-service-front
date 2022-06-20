@@ -6,10 +6,19 @@ export enum EmployeesScheduledActionTypes {
   CLEAR_EMPLOYEES_SCHEDULED_LIST = 'CLEAR_EMPLOYEES_SCHEDULED_LIST',
 }
 
-export interface EmployeesScheduledRes {
-  [key: string]: EmployeeScheduledDataType[];
-}
+export type EmployeesScheduledRes = {
+  id?: string | number,
+  address: AddressDataType,
+  day: number,
+  employeeId: number,
+  end: number,
+  start: number,
+  status: string,
+}[];
 
-type EmployeeScheduledDataType = {
-  employeeId: string;
+type AddressDataType = {
+  id: number,
+  city: string,
+  houseNumber: string,
+  street: string,
 };

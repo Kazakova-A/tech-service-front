@@ -18,7 +18,7 @@ function* getEmployeesScheduledRequestSaga(): Generator {
   try {
     const { zip, type, brand } = (yield select((state: RootState) => state.filters)) as any;
 
-    const payload: EmployeesScheduledRes = {
+    const payload: {} = {
       zip: zip.selected?.value,
       type: type.selected?.value,
       brand: brand.selected?.value,

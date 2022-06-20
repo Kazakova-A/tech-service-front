@@ -5,7 +5,6 @@ import {
   Typography,
   Box,
   Grid,
-  Divider,
   Button,
   CircularProgress,
 } from '@mui/material';
@@ -67,9 +66,9 @@ function Home() {
     dispatch(FiltersActions.setFiltersInputProperty(payload));
   };
 
-  const handleClick = (employeeId: number, scheduledStart: number, scheduledEnd: number, date: string) => {
-    const startData = moment(Number(date) * 1000).add(scheduledStart, 'hours').valueOf() / 1000;
-    const endData = moment(Number(date) * 1000).add(scheduledEnd, 'hours').valueOf() / 1000;
+  const handleClick = (employeeId: number, scheduledStart: number, scheduledEnd: number, date: number) => {
+    const startData = moment(date * 1000).add(scheduledStart, 'hours').valueOf() / 1000;
+    const endData = moment(date * 1000).add(scheduledEnd, 'hours').valueOf() / 1000;
 
     const current = {
       customerId: 1,
@@ -193,42 +192,31 @@ function Home() {
           {dates?.length ? (
             <Grid item xs={8} p={2}>
               <div>
-                {dates.map((date: string) => (
-                  <Box m={3} key={date}>
+                {employeesSchedule.map((item, index: number) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <Box m={2} key={index}>
+                    <div>
+                      {moment(item.day * 1000).format(' DD-MM-YYYY ')}
+                      <Button
+                        size="small"
+                        variant="contained"
+                        onClick={() => handleClick(item.employeeId, item.start, item.end, item.day)}
+                      >
+                        Create Jobs
+                      </Button>
+                    </div>
                     <Typography>
-                      {moment(Number(date) * 1000).format('DD-MM-YYYY')}
+                      {`
+                        start ${item.start}
+                        end ${item.end}
+                        ID ${item.employeeId}
+                      `}
                     </Typography>
-                    {employeesSchedule[date].map((item: any) => (
-                      <Box m={3} key={item.employeeId}>
-                        <Box pl={2} pt={2}>
-                          <Typography>
-                            employee id:
-                            {item.employeeId}
-                          </Typography>
-                          <Box>
-                            {item.workTime.map((work: any) => (
-                              <div>
-                                <Typography>
-                                  {`${work.start}-${work.end}: `}
-                                  {work.status}
-                                </Typography>
-                                <Box mt={3} mb={5}>
-                                  <Button
-                                    size="small"
-                                    variant="contained"
-                                    onClick={() => handleClick(item.employeeId, work.start, work.end, date)}
-                                    disabled={work.status !== 'available'}
-                                  >
-                                    Create Jobs
-                                  </Button>
-                                </Box>
-                              </div>
-                            ))}
-                          </Box>
-                        </Box>
-                        <Divider />
-                      </Box>
-                    ))}
+                    <Typography>
+                      {`
+                        adress ${item.address.city} ${item.address.street} ${item.address.houseNumber}
+                      `}
+                    </Typography>
                   </Box>
                 ))}
               </div>
