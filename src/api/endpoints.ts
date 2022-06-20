@@ -15,4 +15,5 @@ export default {
   zip: `${FILTERS}/zip`,
   addJob: `${JOBS}`,
   getEmployeesList: `${BASE_URL}/employeesList`,
+  getCurrentAddress: `${BASE_URL}/currentAddress`,
 };

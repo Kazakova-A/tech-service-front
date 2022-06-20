@@ -6,6 +6,7 @@ import employees from './employees';
 import filters from './filters';
 import jobs from './jobs';
 import employeesScheduled from './employeesScheduled';
+import currentAddress from './currentAddress';
 
 export const history = createBrowserHistory();
 
@@ -16,5 +17,6 @@ export default function* staticSagas(): Generator {
     filters(),
     jobs(),
     employeesScheduled(),
+    currentAddress(),
   ]);
 }
