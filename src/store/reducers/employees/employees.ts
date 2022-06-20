@@ -1,4 +1,4 @@
-import { EmployeesActionTypes } from 'store/types/employees';
+import { EmployeessActionTypes } from 'store/types/employees';
 import { EmployeesActionsUnion } from 'store/actions/employees';
 
 import { INITIAL_STATE } from './initialState';
@@ -9,26 +9,26 @@ const employeesReducer = (
   action: EmployeesActionsUnion,
 ): EmployeesState => {
   switch (action?.type) {
-    case EmployeesActionTypes.GET_EMPLOYEES_REQUEST: {
+    case EmployeessActionTypes.GET_EMPLOYEES_LIST_REQUEST: {
       return {
         ...state,
         isLoading: true,
       };
     }
-    case EmployeesActionTypes.GET_EMPLOYEES_SUCCESS: {
+    case EmployeessActionTypes.GET_EMPLOYEES_LIST_SUCCESS: {
       return {
         ...state,
         employees: action.payload,
         isLoading: false,
       };
     }
-    case EmployeesActionTypes.GET_EMPLOYEES_ERROR: {
+    case EmployeessActionTypes.GET_EMPLOYEES_LIST_ERROR: {
       return {
         ...state,
         isLoading: false,
       };
     }
-    case EmployeesActionTypes.CLEAR_LIST: {
+    case EmployeessActionTypes.CLEAR_LIST: {
       return {
         ...state,
         employees: [],

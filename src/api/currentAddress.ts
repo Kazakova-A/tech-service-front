@@ -1,13 +1,12 @@
 import axios, { AxiosError } from 'axios';
-import { GetEmployeesRes } from 'store/types/employees';
+import { CurrentAddressRes } from 'store/types/currentAddress';
 import { ErrorResponse, ResponseObject } from './types';
 import ENDPOINTS from './endpoints';
 
-export const fetchEmployeesList = async (params: GetEmployeesRes): Promise<any> => {
+export const fetchCurrentAddress = async (params: CurrentAddressRes): Promise<any> => {
   try {
-    const url = ENDPOINTS.getEmployeesList;
+    const url = ENDPOINTS.getCurrentAddress;
     const { data: { data } }: ResponseObject<any> = await axios.get(`${url}`, { params });
-
     return data;
   } catch (error) {
     const e = error as AxiosError<ErrorResponse>;

@@ -9,13 +9,22 @@ import { utils } from './utils';
 import { EmployeesState } from './employees/declarations';
 import { UtilsState } from './utils/declarations';
 import { FiltersState } from './filters/declarations';
+import { JobsState } from './jobs/declarations';
+import { jobs } from './jobs';
+import { employeesScheduled } from './employeesScheduled';
+import { EmployeesScheduledState } from './employeesScheduled/declarations';
+import { currentAddress } from './currentAddress';
+import { CurrentAddressState } from './currentAddress/declarations';
 
-interface StoreEnhancerState {}
+interface StoreEnhancerState { }
 
 export interface RootState extends StoreEnhancerState {
   employees: EmployeesState;
   filters: FiltersState;
   utils: UtilsState;
+  jobs: JobsState;
+  employeesScheduled: EmployeesScheduledState;
+  currentAddress: CurrentAddressState;
 }
 
 const rootReducer = (history: History) => combineReducers({
@@ -23,6 +32,9 @@ const rootReducer = (history: History) => combineReducers({
   employees,
   filters,
   utils,
+  jobs,
+  employeesScheduled,
+  currentAddress,
 });
 
 export default rootReducer;

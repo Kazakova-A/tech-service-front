@@ -15,19 +15,19 @@ import { RootState } from 'store/reducers';
 import { FiltersActions } from 'store/actions/filters';
 import { UtilsActions } from 'store/actions/utils';
 import { Option, Filters } from 'store/types/filters';
-import { EmployeesActions } from 'store/actions/employees';
 import Select from 'components/Select';
+import { EmployeesScheduledActions } from 'store/actions/employeesScheduled';
+import CurrentAddress from 'components/CurrentAddress';
 
-function HomePage() {
+function Home() {
   const dispatch = useDispatch();
 
   const [isBrandOpen, setIsBrandOpen] = useState<boolean>(false);
   const [isTypeOpen, setIsTypeOpen] = useState<boolean>(false);
   const [isZipOpen, setIsZipOpen] = useState<boolean>(false);
 
-  const employeesSchedule = useSelector((state: RootState) => state.employees.employees);
-  const isLoading = useSelector((state: RootState) => state.employees.isLoading);
-
+  const employeesSchedule = useSelector((state: RootState) => state.employeesScheduled.employeesScheduled);
+  const isLoading = useSelector((state: RootState) => state.employeesScheduled.isLoading);
   const selectedZip = useSelector((state: RootState) => state.filters.zip.selected);
   const selectedType = useSelector((state: RootState) => state.filters.type.selected);
   const selectedBrand = useSelector((state: RootState) => state.filters.brand.selected);
@@ -41,8 +41,7 @@ function HomePage() {
   const zipOptions = useSelector((state: RootState) => state.filters.zip.options);
 
   const isFiltersLoading = useSelector((state: RootState) => state.filters.isLoading);
-
-  const getEmployees = () => dispatch(EmployeesActions.getEmployeesRequest());
+  const getEmployeesScheduled = () => dispatch(EmployeesScheduledActions.getEmployeesScheduledRequest());
 
   const handleSelect = (value: Option | null, name: Filters) => {
     dispatch(FiltersActions.setFiltersProperty({ name, value }));
@@ -68,7 +67,7 @@ function HomePage() {
 
   const clearFilters = () => {
     dispatch(FiltersActions.clearFilters());
-    dispatch(EmployeesActions.clearList());
+    dispatch(EmployeesScheduledActions.clearEmployeesScheduledList());
   };
 
   useEffect(() => {
@@ -169,7 +168,7 @@ function HomePage() {
                 variant="contained"
                 disabled={!selectedZip?.value
                   || (!selectedBrand?.value || !selectedType?.value)}
-                onClick={getEmployees}
+                onClick={getEmployeesScheduled}
               >
                 Find
               </Button>
@@ -177,45 +176,7 @@ function HomePage() {
           </Grid>
           {dates?.length ? (
             <Grid item xs={8} p={2}>
-              <div>
-                {dates.map((date: string) => (
-                  <Box m={3} key={date}>
-                    <Typography>
-                      {moment(Number(date) * 1000).format('DD-MM-YYYY')}
-                    </Typography>
-                    {employeesSchedule[date].map((item: any) => (
-                      <Box m={3} key={item.employeeId}>
-                        <Box pl={2} pt={2}>
-                          <Typography>
-                            employee id:
-                            {item.employeeId}
-                          </Typography>
-                          <Box>
-                            {item.workTime.map((work: any) => (
-                              <Typography>
-                                {`${work.start}-${work.end}: `}
-                                {work.status}
-                              </Typography>
-                            ))}
-                          </Box>
-                        </Box>
-                        <Divider />
-                      </Box>
-                    ))}
-                  </Box>
-                ))}
-                {/* {employeesSchedule.map((item: any) => (
-                  <Box m={3} key={item.id}>
-                    <Box pl={2} pt={2}>
-                      <Typography>
-                        employee id:
-                        {item.id}
-                      </Typography>
-                    </Box>
-                    <Divider />
-                  </Box>
-                ))} */}
-              </div>
+              <CurrentAddress />
             </Grid>
           ) : (
             <Box p={3}>
@@ -228,4 +189,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Home;
