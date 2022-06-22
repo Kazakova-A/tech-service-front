@@ -217,6 +217,13 @@ function Home() {
                         adress ${item.address.city} ${item.address.street} ${item.address.houseNumber}
                       `}
                     </Typography>
+                    <Typography>
+                      {`
+                      diagnosticCoefficient 
+                        ${item.diagnosticCoefficient.diagnosticCoef},
+                        ${item.diagnosticCoefficient.message}
+                      `}
+                    </Typography>
                   </Box>
                 ))}
               </div>

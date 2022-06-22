@@ -14,7 +14,13 @@ export type EmployeesScheduledRes = {
   end: number,
   start: number,
   status: string,
+  diagnosticCoefficient: DiagnosticCoefficientDataType,
 }[];
+
+type DiagnosticCoefficientDataType = {
+  diagnosticCoef: number,
+  message: string,
+};
 
 type AddressDataType = {
   id: number,
